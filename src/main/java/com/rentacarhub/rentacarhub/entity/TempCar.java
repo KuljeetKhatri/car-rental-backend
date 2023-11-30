@@ -24,6 +24,7 @@ public class TempCar {
     private String model;
     private Integer year;
     private String color;
+    @Column(unique = true)
     private String registrationNumber;
 
     @ManyToOne
