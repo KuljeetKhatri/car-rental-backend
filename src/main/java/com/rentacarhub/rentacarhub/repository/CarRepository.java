@@ -14,7 +14,7 @@ public interface CarRepository extends JpaRepository<Car,Long>{
     @Query("UPDATE Car c SET c.isAvailable = :isAvailable where c.id = :id")
     @Transactional
     public void updateIsAvailable(@Param("id") Long id, @Param("isAvailable") Boolean isAvailable);
-
     public List<Car> findCarByBrandAndModel(String brand, String model);
 
+    public List<Car> findCarByPartnerId(Long partnerId);
 }

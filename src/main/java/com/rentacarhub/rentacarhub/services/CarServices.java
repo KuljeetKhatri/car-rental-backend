@@ -38,5 +38,8 @@ public class CarServices {
         return carRepository.findCarByBrandAndModel(brand,model);
     }
 
+    public List<Car> findPartnerCar(Long partnerID){
+        return carRepository.findCarByPartnerId(partnerID);
+    }
 
 }

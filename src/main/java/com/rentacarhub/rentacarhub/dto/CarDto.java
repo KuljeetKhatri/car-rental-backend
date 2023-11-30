@@ -7,6 +7,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.BeanUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -30,6 +33,12 @@ public class CarDto {
 
     public static CarDto getCarDto(Car car){
         CarDto carDto = new CarDto();
+        BeanUtils.copyProperties(car, carDto);
+        return carDto;
+    }
+
+    public static List<CarDto> getCarDtoList(List<Car> car){
+        List<CarDto> carDto = new ArrayList<>();
         BeanUtils.copyProperties(car, carDto);
         return carDto;
     }

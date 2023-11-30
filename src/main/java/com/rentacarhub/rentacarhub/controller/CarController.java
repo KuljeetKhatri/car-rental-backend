@@ -54,4 +54,11 @@ public class CarController {
         List<Car> cars = carServices.findModelCar(loginData.get("brand"), loginData.get("model"));
         return new ResponseEntity<>(cars,HttpStatus.OK);
     }
+
+    @GetMapping("/partner/{partner_id}")
+    public ResponseEntity<?> findPartnerCar(@PathVariable("partner_id") Long partnerID){
+//        List<CarDto> carDtoList = CarDto.getCarDtoList(carServices.findPartnerCar(partnerID));
+        return new ResponseEntity<>(carServices.findPartnerCar(partnerID),HttpStatus.OK);
+    }
+
 }
