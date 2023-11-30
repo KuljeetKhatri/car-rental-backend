@@ -10,13 +10,16 @@ public class PartnerLoginServiceImpl implements PartnerLoginService {
     private PartnerServices partnerServices;
 
     @Override
-    public boolean authenticatePartner(String email, String password) {
+    public Partner authenticatePartner(String email, String password) {
         // Implement your authentication logic here
         // Example: Check if the provided username and password match an admin in the database
         Partner partner = partnerServices.getEmail(email);
 
         // Check if admin exists and the password matches
-        return partner != null && partner.getPassword().equals(password);
+        if(partner != null && partner.getPassword().equals(password))
+            return partner;
+
+        return null;
     }
 
 }

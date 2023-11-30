@@ -39,14 +39,22 @@ public class PartnerController {
         return new ResponseEntity<>(partners,HttpStatus.OK);
     }
 
+    @GetMapping("/{partner_id}")
+    public ResponseEntity<?> getPartner(@PathVariable("partner_id") Long partnerId){
+        Partner partner = partnerServices.getPartner(partnerId);
+        return new ResponseEntity<>(partner,HttpStatus.OK);
+    }
 
     @PostMapping("/login")
     public ResponseEntity<?> partnerLogin(@RequestBody Map<String, String> loginData) {
-        boolean isAuthenticated = partnerLoginService.authenticatePartner(loginData.get("email"), loginData.get("password"));
+        Partner isAuthenticated = partnerLoginService.authenticatePartner(loginData.get("email"), loginData.get("password"));
 
-        if (isAuthenticated) {
-            Map<String, String> response = new HashMap<>();
-            response.put("message", "Login successful");
+        if (isAuthenticated != null) {
+            PartnerDto partnerDto = PartnerDto.getPartnerDto(isAuthenticated);
+            Map<String, Object> response = new HashMap<>();
+            response.put("code","00");
+            response.put("success","Login successful");
+            response.put("PartnerDto", partnerDto);
             return ResponseEntity.ok(response);
         } else {
             // Handle other cases

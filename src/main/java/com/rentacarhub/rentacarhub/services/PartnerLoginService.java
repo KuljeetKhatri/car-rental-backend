@@ -1,6 +1,8 @@
 package com.rentacarhub.rentacarhub.services;
 
+import com.rentacarhub.rentacarhub.entity.Partner;
+
 public interface PartnerLoginService {
-    boolean authenticatePartner(String email, String password);
+    Partner authenticatePartner(String email, String password);
 
 }
