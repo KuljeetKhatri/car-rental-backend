@@ -5,7 +5,9 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -13,16 +15,18 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EnableTransactionManagement
 @Table(name = "credit_card")
     public class CreditCard {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "id")
         private Long id;
+        @Column(unique = true)
         private Long cardNumber;
-        private Integer month;
-        private Integer year;
+        private LocalDate validThru;
         private Integer cvv;
+        private Long cardLimit;
 
 
         @OneToOne

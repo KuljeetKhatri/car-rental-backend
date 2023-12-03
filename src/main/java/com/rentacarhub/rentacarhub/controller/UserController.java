@@ -9,6 +9,7 @@ import com.rentacarhub.rentacarhub.services.CreditCardServices;
 import com.rentacarhub.rentacarhub.services.UserLoginService;
 import com.rentacarhub.rentacarhub.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -38,11 +39,17 @@ public class UserController {
         return new ResponseEntity<>(userServices.getData(),HttpStatus.OK);
     }
 
-    @PostMapping("/registration")
+    @PostMapping("")
     public ResponseEntity<?> setUser(@RequestBody UserDto userDto){
-        User user = UserDto.getUser(userDto);
-        user = userServices.setUser(user);
-        return new ResponseEntity<>(user,HttpStatus.OK);
+        try{
+            User user = UserDto.getUser(userDto);
+            user = userServices.setUser(user);
+            return new ResponseEntity<>(user,HttpStatus.OK);
+        }catch (DataIntegrityViolationException e){
+            HashMap<Number,String> response = new HashMap<>();
+            response.put(0,"Email already exists");
+            return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
+        }
     }
 
 

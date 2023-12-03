@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.BeanUtils;
 
+import java.time.LocalDate;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,10 +16,10 @@ public class CreditCardDto {
 
     private Long id;
     private Long cardNumber;
-    private Integer month;
-    private Integer year;
+    private LocalDate validThru;
     private Integer cvv;
-    private Long accountBalance;
+    private Long cardLimit;
+
 
 
     public static CreditCard getCreditCard(CreditCardDto creditCardDto){
