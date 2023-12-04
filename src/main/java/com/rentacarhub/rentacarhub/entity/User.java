@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.thymeleaf.context.ILazyContextVariable;
 
 import java.util.List;
@@ -20,6 +21,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EnableTransactionManagement
 public class User {
 
     @Id

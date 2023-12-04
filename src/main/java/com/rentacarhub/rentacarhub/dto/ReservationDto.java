@@ -22,6 +22,7 @@ public class ReservationDto {
     private Long rentPerDay ;
     private String brand;
     private String model;
+    private String registrationNumber;
     private String status;
     public static Reservation getReservation(ReservationDto reservationDto){
         Reservation reservation = new Reservation();
@@ -36,6 +37,7 @@ public class ReservationDto {
         BeanUtils.copyProperties(reservation,reservationDto);
         reservationDto.setModel(reservation.getCar().getModel());
         reservationDto.setBrand(reservation.getCar().getBrand());
+        reservationDto.setRegistrationNumber(reservation.getCar().getRegistrationNumber());
         return reservationDto;
     }
 
@@ -51,6 +53,7 @@ public class ReservationDto {
             if (car != null) {
                 reservationDto.setModel(car.getModel());
                 reservationDto.setBrand(car.getBrand());
+                reservationDto.setRegistrationNumber(reservation.getCar().getRegistrationNumber());
             }
 
             reservationDtoList.add(reservationDto);

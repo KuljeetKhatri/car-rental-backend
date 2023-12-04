@@ -10,6 +10,7 @@ import com.rentacarhub.rentacarhub.repository.TempCarRepository;
 import com.rentacarhub.rentacarhub.services.CarServices;
 import com.rentacarhub.rentacarhub.services.PartnerServices;
 import com.rentacarhub.rentacarhub.services.TempCarService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,7 @@ public class TempCarController {
     @Autowired
     private CarServices carServices;
 
+    @Transactional
     @PostMapping("/{partner_id}")
     public ResponseEntity<?> save(@PathVariable("partner_id") Long partnerId, @RequestBody TempCarDto tempCarDto){
         TempCar tempCar = TempCarDto.getTempCar(tempCarDto);
@@ -51,6 +53,7 @@ public class TempCarController {
         return new ResponseEntity<>(tempCarService.get(),HttpStatus.OK);
     }
 
+    @Transactional
     @PostMapping("/approved/{car_id}")
     public ResponseEntity<?> approveCar(@PathVariable("car_id") Long car_id){
         TempCar tempCar = new TempCar();
@@ -62,6 +65,7 @@ public class TempCarController {
         return new ResponseEntity<>("Car Approved ",HttpStatus.OK);
     }
 
+    @Transactional
     @PostMapping("/disapproved/{car_id}")
     public ResponseEntity<?> disApproveCar(@PathVariable("car_id") Long car_id){
         tempCarService.deleteCar(car_id);

@@ -8,6 +8,7 @@ import com.rentacarhub.rentacarhub.repository.ReservationRepository;
 import com.rentacarhub.rentacarhub.services.CreditCardServices;
 import com.rentacarhub.rentacarhub.services.UserLoginService;
 import com.rentacarhub.rentacarhub.services.UserServices;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -39,6 +40,7 @@ public class UserController {
         return new ResponseEntity<>(userServices.getData(),HttpStatus.OK);
     }
 
+    @Transactional
     @PostMapping("")
     public ResponseEntity<?> setUser(@RequestBody UserDto userDto){
         try{
@@ -60,6 +62,7 @@ public class UserController {
         return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
 
+    @Transactional
     @PostMapping("/changePassword/{user_id}")
     public ResponseEntity<?> updateUser(@PathVariable("user_id") Long id , @RequestBody ChangeUserPassword request){
         User user = new User();
@@ -87,6 +90,7 @@ public class UserController {
 
     }
 
+    @Transactional
     @PostMapping("/login")
     public ResponseEntity<?> userLogin(@RequestBody Map<String, String> loginData) {
         User isAuthenticatedUser = userLoginService.authenticateUser(loginData.get("email"), loginData.get("password"));

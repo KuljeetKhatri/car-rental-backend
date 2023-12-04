@@ -3,6 +3,7 @@ package com.rentacarhub.rentacarhub.controller;
 import com.rentacarhub.rentacarhub.dto.CarDto;
 import com.rentacarhub.rentacarhub.entity.Car;
 import com.rentacarhub.rentacarhub.services.CarServices;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ public class CarController {
 
 
 
+    @Transactional
     @PostMapping(path="/save")
     public ResponseEntity<?> save(@RequestBody CarDto carDtop){
         Car car = CarDto.getCar(carDtop);
@@ -38,6 +40,7 @@ public class CarController {
         return new ResponseEntity<>("update",HttpStatus.OK);
     }
 
+    @Transactional
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteCar(@PathVariable("id") Long carId){
         Car car = carServices.findCarById(carId);
@@ -48,7 +51,7 @@ public class CarController {
             return new ResponseEntity<>("Car not found", HttpStatus.NOT_FOUND);
         }
     }
-
+   @Transactional
     @PostMapping("/car")
     public ResponseEntity<List<Car>> findAll(@RequestBody Map<String, String> loginData ){
         List<Car> cars = carServices.findModelCar(loginData.get("brand"), loginData.get("model"));

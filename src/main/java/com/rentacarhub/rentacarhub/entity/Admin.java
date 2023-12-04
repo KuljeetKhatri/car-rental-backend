@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EnableTransactionManagement
 public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

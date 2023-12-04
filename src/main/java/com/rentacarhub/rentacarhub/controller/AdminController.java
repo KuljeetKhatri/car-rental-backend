@@ -8,6 +8,7 @@ import com.rentacarhub.rentacarhub.entity.Car;
 import com.rentacarhub.rentacarhub.entity.Reservation;
 import com.rentacarhub.rentacarhub.entity.TempCar;
 import com.rentacarhub.rentacarhub.services.*;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
@@ -44,6 +45,7 @@ public class AdminController {
 
 
     // add admin
+    @Transactional
     @PostMapping()
     public ResponseEntity<?> saveAdmin(@RequestBody AdminDto adminDto) {
         try {
@@ -75,6 +77,7 @@ public class AdminController {
     }
 
 
+    @Transactional
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Map<String, String> loginData) {
         Admin authenticatedAdmin = adminLoginService.authenticateAdmin(loginData.get("email"), loginData.get("password"));

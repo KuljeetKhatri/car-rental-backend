@@ -3,10 +3,7 @@ package com.rentacarhub.rentacarhub.controller;
 import com.rentacarhub.rentacarhub.dto.ReservationDto;
 import com.rentacarhub.rentacarhub.dto.UserDto;
 import com.rentacarhub.rentacarhub.entity.*;
-import com.rentacarhub.rentacarhub.services.AdminServices;
-import com.rentacarhub.rentacarhub.services.CarServices;
-import com.rentacarhub.rentacarhub.services.ReservationServices;
-import com.rentacarhub.rentacarhub.services.UserServices;
+import com.rentacarhub.rentacarhub.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +24,8 @@ public class ReservationController {
     private UserServices userServices;
     @Autowired
     private CarServices carServices;
+    @Autowired
+    private PartnerPaymentInfoService partnerPaymentInfoService;
 
 //    @PostMapping("/{user_id}/{car_id}")
 //    public ResponseEntity<?> setReservation(@PathVariable("user_id") Long user_id ,@PathVariable("car_id") Long car_id,
@@ -52,15 +51,15 @@ public class ReservationController {
     public ResponseEntity<?> setReservation(@PathVariable("user_id") Long user_id, @PathVariable("car_id") Long car_id, @RequestBody ReservationDto reservationDto) {
         User user = userServices.findById(user_id);
         if (user == null) {
-            return new ResponseEntity<>("First register yourself", HttpStatus.OK);
+            return new ResponseEntity<>("First register yourself", HttpStatus.BAD_REQUEST);
         }
         Car car = carServices.findCarById(car_id);
         if (car == null) {
             // Handle the case where the car is not found
-            return new ResponseEntity<>("Car not found", HttpStatus.OK);
+            return new ResponseEntity<>("Car not found", HttpStatus.BAD_REQUEST);
         }
         if (!car.getIsAvailable()) {
-            return new ResponseEntity<>("Car is not available", HttpStatus.OK);
+            return new ResponseEntity<>("Car is not available", HttpStatus.BAD_REQUEST);
         }
         Reservation reservation = ReservationDto.getReservation(reservationDto);
         reservation.setUser(user);
@@ -69,8 +68,9 @@ public class ReservationController {
         reservation.setRentPerDay(car.getRentPerDay()*day);
         reservation = reservationServices.set(reservation);
         carServices.updateAvailable(car_id, false);
-        String message = "Reservation done";
-        return new ResponseEntity<>(message, HttpStatus.OK);
+        partnerPaymentInfoService.addPayment(reservation);
+//        String message = "Reservation done";
+        return new ResponseEntity<>(reservation, HttpStatus.OK);
     }
 
     @GetMapping("/{user_id}")

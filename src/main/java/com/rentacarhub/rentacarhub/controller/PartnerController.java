@@ -4,6 +4,7 @@ import com.rentacarhub.rentacarhub.dto.PartnerDto;
 import com.rentacarhub.rentacarhub.entity.Partner;
 import com.rentacarhub.rentacarhub.services.PartnerLoginServiceImpl;
 import com.rentacarhub.rentacarhub.services.PartnerServices;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,7 @@ public class PartnerController {
     PartnerLoginServiceImpl partnerLoginService;
 
 
+    @Transactional
     @PostMapping
     public ResponseEntity<?> save(@RequestBody PartnerDto partnerDto){
         Partner partner = PartnerDto.getPartner(partnerDto);
@@ -45,6 +47,7 @@ public class PartnerController {
         return new ResponseEntity<>(partner,HttpStatus.OK);
     }
 
+    @Transactional
     @PostMapping("/login")
     public ResponseEntity<?> partnerLogin(@RequestBody Map<String, String> loginData) {
         Partner isAuthenticated = partnerLoginService.authenticatePartner(loginData.get("email"), loginData.get("password"));

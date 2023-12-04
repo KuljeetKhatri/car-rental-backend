@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EnableTransactionManagement
 public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +31,7 @@ public class Car {
 
     @OneToOne(mappedBy = "car")
     private Reservation reservation;
+
     // rental history one to many
     @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RentalHistory> rentalHistories;
@@ -37,8 +40,5 @@ public class Car {
     @JoinColumn(name = "partner_id")
     @JsonIgnore
     private Partner partner;
-
-
-
 
 }

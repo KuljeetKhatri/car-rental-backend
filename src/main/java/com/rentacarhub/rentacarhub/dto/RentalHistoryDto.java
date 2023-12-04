@@ -19,6 +19,7 @@ public class RentalHistoryDto {
     private Long id;
     private String brand;
     private String model;
+    private String registrationNumber;
     private static final String states = "inActive";
     private LocalDateTime startDate;
     private LocalDateTime endDate;
@@ -38,6 +39,7 @@ public class RentalHistoryDto {
         BeanUtils.copyProperties(rentalHistory, rentalHistoryDto);
         rentalHistoryDto.setModel(rentalHistory.getCar().getModel());
         rentalHistoryDto.setBrand(rentalHistory.getCar().getBrand());
+        rentalHistoryDto.setRegistrationNumber(rentalHistory.getCar().getRegistrationNumber());
         rentalHistoryDto.setRentPerDay(rentalHistoryDto.getRentPerDay());
         return rentalHistoryDto;
     }
@@ -53,6 +55,7 @@ public class RentalHistoryDto {
 
                 rentalHistoryDto.setModel(rentalHistory.getCar().getModel());
                 rentalHistoryDto.setBrand(rentalHistory.getCar().getBrand());
+                rentalHistoryDto.setRegistrationNumber(rentalHistory.getCar().getRegistrationNumber());
 
                 rentalHistoryDto.setRentPerDay(rentalHistoryDto.getRentPerDay());
             reservationDtoList.add(rentalHistoryDto);
