@@ -1,6 +1,7 @@
 package com.rentacarhub.rentacarhub.dto;
 
 import com.rentacarhub.rentacarhub.entity.Car;
+import com.rentacarhub.rentacarhub.entity.RentalHistory;
 import com.rentacarhub.rentacarhub.entity.TempCar;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,6 +21,8 @@ public class TempCarDto {
     private Integer year;
     private String color;
     private String registrationNumber;
+    private String partnerFirstName;
+    private String partnerLastName;
 
 
 
@@ -40,6 +43,21 @@ public class TempCarDto {
         BeanUtils.copyProperties(tempCar,tempCarDto);
         return tempCarDto;
     }
+
+    public static List<TempCarDto> getTempCarDtoList(List<TempCar> tempCars) {
+        List<TempCarDto> carDtoList = new ArrayList<>();
+
+        for (TempCar tempCar : tempCars) {
+            TempCarDto tempCarDto = new TempCarDto();
+            BeanUtils.copyProperties(tempCar, tempCarDto);
+            tempCarDto.setPartnerFirstName(tempCar.getPartner().getFirstName());
+            tempCarDto.setPartnerLastName(tempCar.getPartner().getLastName());
+            carDtoList.add(tempCarDto);
+        }
+
+        return carDtoList;
+    }
+
 
 
 }

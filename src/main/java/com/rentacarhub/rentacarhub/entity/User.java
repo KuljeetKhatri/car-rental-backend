@@ -28,13 +28,19 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private Long id;
+    @Column(nullable = false)
     private String firstName;
+    @Column(nullable = false)
     private String lastName;
+    @Column(nullable = false)
     private String userName;
+    @Column(nullable = false)
     private String password;
     @Column(unique = true)
     private String email;
+    @Column(nullable = false)
     private String phone;
+    @Column(nullable = false)
     private String license_number;
 
     @OneToMany(mappedBy = "user")

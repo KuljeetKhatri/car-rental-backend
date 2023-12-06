@@ -22,4 +22,8 @@ public class CreditCardServices {
         return creditCard;
     }
 
+    public CreditCard getCard(Long id){
+        return creditCardRepository.findCreditCardByUserId(id);
+    }
+
 }

@@ -22,11 +22,17 @@ public class Car {
     @Column(name ="id")
     private Long id;
     private String brand;
+    @Column(nullable = false)
     private String model;
+    @Column(nullable = false)
     private Integer year;
+    @Column(nullable = false)
     private String color;
+    @Column(nullable = false)
     private String registrationNumber;
+    @Column(nullable = false)
     private Boolean isAvailable;
+    @Column(nullable = false)
     private Long rentPerDay;
 
     @OneToOne(mappedBy = "car")

@@ -26,6 +26,8 @@ public class ReservationController {
     private CarServices carServices;
     @Autowired
     private PartnerPaymentInfoService partnerPaymentInfoService;
+    @Autowired
+    private  PaymentInfoService paymentInfoService;
 
 //    @PostMapping("/{user_id}/{car_id}")
 //    public ResponseEntity<?> setReservation(@PathVariable("user_id") Long user_id ,@PathVariable("car_id") Long car_id,
@@ -62,6 +64,12 @@ public class ReservationController {
             return new ResponseEntity<>("Car is not available", HttpStatus.BAD_REQUEST);
         }
         Reservation reservation = ReservationDto.getReservation(reservationDto);
+
+        CreditCard creditCard = user.getCreditCard();
+        if(creditCard.getCardLimit()<reservation.getRentPerDay()) {
+            String message = "Limit Exceeded";
+            return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+        }
         reservation.setUser(user);
         reservation.setCar(car);
         Long day = RentCalculator.calculateRent(reservation);
@@ -70,6 +78,13 @@ public class ReservationController {
         carServices.updateAvailable(car_id, false);
         partnerPaymentInfoService.addPayment(reservation);
 //        String message = "Reservation done";
+
+            PaymentInfo paymentInfo =  new PaymentInfo();
+            paymentInfo.setBill(reservation.getRentPerDay());
+            paymentInfo.setDate(reservation.getStartDate());
+            paymentInfo.setCreditCard(creditCard);
+            creditCard.setCardLimit(creditCard.getCardLimit()-reservation.getRentPerDay());
+            paymentInfoService.savePayment(paymentInfo);
         return new ResponseEntity<>(reservation, HttpStatus.OK);
     }
 

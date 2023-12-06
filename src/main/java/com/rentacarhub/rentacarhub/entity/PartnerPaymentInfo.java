@@ -27,10 +27,10 @@ public class PartnerPaymentInfo {
     @ManyToOne
     @JoinColumn(name = "partner_id")
     private Partner partner;
-
-    @ManyToOne
-    @JoinColumn(name = "reservation_id")
-    private Reservation reservation;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "reservation_id")
+//    private Reservation reservation;
 
 
 }

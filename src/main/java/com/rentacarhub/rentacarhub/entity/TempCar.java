@@ -21,9 +21,13 @@ public class TempCar {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="id")
     private Long id;
+    @Column(nullable = false)
     private String brand;
+    @Column(nullable = false)
     private String model;
+    @Column(nullable = false)
     private Integer year;
+    @Column(nullable = false)
     private String color;
     @Column(unique = true)
     private String registrationNumber;

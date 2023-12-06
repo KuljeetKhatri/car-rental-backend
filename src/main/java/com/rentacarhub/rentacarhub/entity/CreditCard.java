@@ -24,8 +24,11 @@ import java.util.List;
         private Long id;
         @Column(unique = true)
         private Long cardNumber;
+        @Column(nullable = false)
         private LocalDate validThru;
+        @Column(nullable = false)
         private Integer cvv;
+        @Column(nullable = false)
         private Long cardLimit;
 
 

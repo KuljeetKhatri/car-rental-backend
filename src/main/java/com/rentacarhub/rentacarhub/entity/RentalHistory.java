@@ -25,6 +25,7 @@ public class RentalHistory {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private Long rentPerDay;
+    private String address;
 
 
     // User many-to-one mapping

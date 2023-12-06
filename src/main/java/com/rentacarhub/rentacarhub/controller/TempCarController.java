@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -50,7 +51,9 @@ public class TempCarController {
 
     @GetMapping
     public ResponseEntity<?> getCars(){
-        return new ResponseEntity<>(tempCarService.get(),HttpStatus.OK);
+        List<TempCar> tempCars = tempCarService.get();
+        List<TempCarDto> carDtoList = TempCarDto.getTempCarDtoList(tempCars);
+        return new ResponseEntity<>(carDtoList,HttpStatus.OK);
     }
 
     @Transactional

@@ -30,4 +30,12 @@ public class PartnerServices {
         return partnerRepository.getPartnersByEmail(email);
     }
 
+    public List<Object[]> findAllPartnerCar(){
+        return partnerRepository.findAllPartnerCar();
+    }
+
+    public Long findPartnerCar(Long partnerId){
+        return partnerRepository.findPartnerCar(partnerId);
+    }
+
 }

@@ -41,6 +41,12 @@ public class PartnerController {
         return new ResponseEntity<>(partners,HttpStatus.OK);
     }
 
+    @GetMapping("/partner-car")
+    public ResponseEntity<?> getPartner(){
+        List<Object[]> partners = partnerServices.findAllPartnerCar();
+        return new ResponseEntity<>(partners,HttpStatus.OK);
+    }
+
     @GetMapping("/{partner_id}")
     public ResponseEntity<?> getPartner(@PathVariable("partner_id") Long partnerId){
         Partner partner = partnerServices.getPartner(partnerId);

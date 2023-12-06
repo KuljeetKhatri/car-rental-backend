@@ -27,10 +27,16 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+    @Column(nullable = false)
     private LocalDateTime startDate;
+    @Column(nullable = false)
     private LocalDateTime endDate;
+//    @Column(nullable = false)
     private Long rentPerDay ;
+//    @Column(nullable = false)
     private String status;
+//    @Column(nullable = false)
+//    private String address;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
